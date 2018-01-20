@@ -5,19 +5,9 @@ class MyForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      labels: props.labels
+      labels: props.labels,
+      handleSubmit: props.onSubmit
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    
-    // fetch('/api/form-submit-url', {
-    //   method: 'POST',
-    //   body: data,
-    // });
   }
 
   render() {
@@ -27,7 +17,7 @@ class MyForm extends React.Component {
         );
     });
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={ this.state.handleSubmit }>
         { inputs }
         <button>Submit</button>
       </form>
