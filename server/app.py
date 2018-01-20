@@ -1,12 +1,14 @@
 import os
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from textblob import TextBlob
 import tweepy
 
 import random
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Credentials from environmnent.
@@ -44,6 +46,7 @@ def get_tweet():
     nouns = [word for word, tag in blob.tags if tag == 'NN']
     nouns += blob.noun_phrases
     verbs = [word for word, tag in blob.tags if tag in ('VB', 'VBG')]
+    # adjectives = [word for word, tag in blob.tags if tag in ('JJ')]
 
     # Only repleace things that are actually words.
     for noun in nouns:
@@ -53,6 +56,10 @@ def get_tweet():
     for verb in verbs:
         if verb in blob.words:
             new_text = new_text.replace(verb, '{verb}')
+
+    # for adj in adjectives:
+    #     if adj in blob.words:
+    #         new_text = new_text.replace(adj, '{verb}')
 
     return jsonify({
         "user": twitter_user,
