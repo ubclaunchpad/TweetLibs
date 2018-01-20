@@ -5,7 +5,7 @@ class MyForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      labels: ['adjective', 'adjective', 'noun', 'verb', 'plural noun']
+      labels: props.labels
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
