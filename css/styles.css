@@ -1,0 +1,33 @@
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+    background: #2f2e2e;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-flow: column;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#app {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+}
+
+.page {
+    display: flex;
+    flex: 1;
+    flex-flow: row;
+}
+
