@@ -1,0 +1,68 @@
+
+.tweet-root {
+    display: block;
+    color: rgb(28, 32, 34);
+    white-space: initial;
+    background: 0px 0px;
+    font: 16px/1.4 Helvetica, Roboto, "Segoe UI", Calibri, sans-serif;
+    border: 1px solid #e1e8ed;
+    max-width: 500px;
+    border-radius: 5px;
+}
+
+.tweet-content {
+   padding: 20px 20px 11.6px; 
+}
+
+.tweet-header {
+   display: flex;
+   flex-flow: row;
+}
+
+.tweet-avatar {
+    border-radius: 50%;
+    margin-right: 9px;
+    width: 36px;
+    height: 36px;
+}
+
+.tweet-author {
+    display: flex;
+    flex-flow: column;
+    margin-top: 2px;
+}
+.tweet-author-name {
+    font-weight: 700;
+}
+
+.tweet-author-screenname {
+    color: rgb(105, 120, 130);
+    font-size: 14px;
+    padding-right: 4px;
+    flex-basis: 100%;
+}
+
+.tweet-body {
+    margin-top: 14px;
+}
+
+.tweet-text {
+    margin-bottom: 0;
+}
+
+.tweet-date {
+    margin-top: 3.2px;
+    color: rgb(105, 120, 130);
+    font-size: 14px;
+}
+
+.tweet-actions {
+    margin-top: 8.4px;
+    display: flex;
+    color: rgb(105, 120, 130);
+    font-size: 14px;
+}
+
+.tweet-action {
+    margin-right: 20px;
+}
