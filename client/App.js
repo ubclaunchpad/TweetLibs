@@ -13,16 +13,13 @@ class App extends Component {
     	page: 'home',
     	labels: [],
     	twitter_user: '',
+    	tweet_text: '',
     }
   }
 
   handleSubmitHome(e) {
   	e.preventDefault();
   	this.fetchData()
-  	
-  	// mock data for labels
-  	this.state.labels = ['noun', 'adjective', 'noun', 'verb'];
-  	this.setState({'page': 'myform' });
   }
 
   handleSubmitForm(e) {
@@ -37,16 +34,28 @@ class App extends Component {
 
   fetchData() {
   	fetch(`http://35.227.181.45/api/tweet?twitter_user=${this.state.twitter_user}`)
-  	.then((resp) => resp.json())
-  	.then(function(data) {
-  		console.log("RESPONSE");
-  		console.log(data);
+  	.then( resp => resp.json())
+  	.then( data => {
   		// store labels (adjective, noun etc) in this.state.labels
+  		this.setState({'labels': this.parseNewText(data.new_text)});
+  		this.setState({'tweet_text': data.new_text});
+  		this.setState({'page': 'myform' });
 
   	})
   	.catch(function(error) {
   		console.log(error);
   	})
+  }
+
+  // retrieve list of "noun, verb, adj" etc
+  parseNewText(text) {
+  	var regExp = /{noun}|{verb}|{adjective}/g;
+		var matches = text.match(regExp);
+		for (var i = 0; i < matches.length; i++) {
+			matches[i] = matches[i].replace("{", "");
+			matches[i] = matches[i].replace("}", "");
+		}
+		return matches;
   }
 
   render() {

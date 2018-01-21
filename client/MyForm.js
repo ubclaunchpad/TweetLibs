@@ -4,6 +4,7 @@ import SingleInput from './SingleInput';
 class MyForm extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       labels: props.labels,
       handleSubmit: props.onSubmit
