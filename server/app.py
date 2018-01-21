@@ -1,12 +1,15 @@
 import os
+import re
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from textblob import TextBlob
 import tweepy
 
 import random
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Credentials from environmnent.
@@ -34,6 +37,9 @@ def get_tweet():
         tweet_mode='extended'
     )
 
+    # arbitrary lenght benchmark
+    tweets = [i for i in tweets if len(i.full_text) > 30]
+
     # Collect a random tweet, process it.
     status = tweets[random.randint(0, len(tweets) - 1)]
 
@@ -44,15 +50,24 @@ def get_tweet():
     nouns = [word for word, tag in blob.tags if tag == 'NN']
     nouns += blob.noun_phrases
     verbs = [word for word, tag in blob.tags if tag in ('VB', 'VBG')]
+    adjectives = [word for word, tag in blob.tags if tag in ('JJ')]
 
     # Only repleace things that are actually words.
+    replace_count = 0
     for noun in nouns:
-        if noun in blob.words:
+        if noun in blob.words and "\\" not in noun and replace_count < 10:
             new_text = new_text.replace(noun, '{noun}')
+            replace_count += 1
 
     for verb in verbs:
-        if verb in blob.words:
+        if verb in blob.words and "\\" not in verb and replace_count < 10:
             new_text = new_text.replace(verb, '{verb}')
+            replace_count += 1
+
+    for adj in adjectives:
+        if adj in blob.words and len(adj) > 2 and replace_count < 10:
+            new_text = new_text.replace(adj, '{adjective}')
+            replace_count += 1
 
     return jsonify({
         "user": twitter_user,
@@ -65,6 +80,7 @@ def get_tweet():
         "created_at": status.created_at,
         "nouns": nouns,
         "verbs": verbs,
+        "adjectives": adjectives,
         "verified": status.author.verified,
         "tweet_id": status.id,
     })
