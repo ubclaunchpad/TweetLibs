@@ -106,8 +106,11 @@ class App extends Component {
   	else if (this.state.page == 'home') {
   		Content = (
       	<form onSubmit={ this.handleSubmitHome }>
-  				<label>Choose your account:</label>
+            <div className="username-input">
+            <span className="at-sign">@</span>
   				<input type="text" defaultValue="realdonaldtrump" onChange= { this.handleTwitterUserChange } />
+            </div>
+  				<label>username</label>
         	<button>Submit</button>
       	</form>
     	);

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SingleInput = (props) => (  
-  <div>
+  <div className="word-box">
+  	<input className="word" type="text" />
   	<label>{ props.label }</label>
-  	<input type="text" />
   </div>
 );
 

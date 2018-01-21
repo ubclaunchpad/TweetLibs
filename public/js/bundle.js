@@ -18423,11 +18423,20 @@ var App = function (_Component) {
           'form',
           { onSubmit: this.handleSubmitHome },
           _react2.default.createElement(
+            'div',
+            { className: 'username-input' },
+            _react2.default.createElement(
+              'span',
+              { className: 'at-sign' },
+              '@'
+            ),
+            _react2.default.createElement('input', { type: 'text', defaultValue: 'realdonaldtrump', onChange: this.handleTwitterUserChange })
+          ),
+          _react2.default.createElement(
             'label',
             null,
-            'Choose your account:'
+            'username'
           ),
-          _react2.default.createElement('input', { type: 'text', defaultValue: 'realdonaldtrump', onChange: this.handleTwitterUserChange }),
           _react2.default.createElement(
             'button',
             null,
@@ -19063,13 +19072,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var SingleInput = function SingleInput(props) {
   return _react2.default.createElement(
     'div',
-    null,
+    { className: 'word-box' },
+    _react2.default.createElement('input', { className: 'word', type: 'text' }),
     _react2.default.createElement(
       'label',
       null,
       props.label
-    ),
-    _react2.default.createElement('input', { type: 'text' })
+    )
   );
 };
 
