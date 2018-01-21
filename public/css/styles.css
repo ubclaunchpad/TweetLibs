@@ -1,6 +1,6 @@
 body {
   font-family: 'Roboto Slab', sans-serif;
-  background: white;
+  background: #e6ecf1;
   color: #484848;
   padding: 40px;
 }
@@ -14,6 +14,7 @@ input {
   font-family: 'Roboto Slab', sans-serif;
   font-size: 16px;
   outline: none;
+  border-radius: 21px;
 }
 
 .displayErrors input:invalid {
@@ -27,26 +28,21 @@ pre, code {
 button {
   cursor: pointer;
   padding: 12px;
-  background: #999;
   font-family: 'Roboto Slab', sans-serif;
   font-size: 16px;
-  border: none;
   outline: none;
-  color: white;
-  border-bottom: 2px solid #797979;
-  
-  &:hover {
-    background-color: #a1a1a1;
-  }
+  color: #1DA1F2;
+  border: 1px solid #1DA1F2;
+  border-radius: 31px;
+  width: 210px;
+}
 
-  &:active {
-    background-color: #888;
-  }
+button:hover {
+    background-color: #E8F5FD;
 }
 
 form {
   display: inline-block;
-  margin-right: 50px;
   margin-bottom: 20px;
   vertical-align: top;
 }
@@ -57,6 +53,10 @@ form {
 
 h3 {
   margin-top: 0;
+}
+
+label {
+   color: #657786;
 }
 
 @keyframes bounce {
@@ -83,4 +83,34 @@ h3 {
 .bounce {
   animation: bounce 0.5s;
   transform-origin: center bottom;
+}
+
+#app {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    max-width: 600px;
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.title {
+    font-size: 63px;
+    margin-bottom: 40px;
+}
+.logo {
+    height: 78px;
+    width: 93px;
+}
+
+.title-bar {
+    display: flex;
+    flex-flow: row;
 }

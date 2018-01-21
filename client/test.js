@@ -12,9 +12,8 @@ class App extends Component {
     this.state = {
     	page: 'home',
     	labels: [],
-    	twitter_user: 'realdonaldtrump',
-    	tweet_text: '',
-      tweet: {
+    	twitter_user: '',
+        tweet: {
             avatarURL: "https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_normal.jpg",
             name: "Donald J. Trump",
             screenName: "@realDonaldTrump",
@@ -24,30 +23,22 @@ class App extends Component {
             retweets: 8443,
             likes: 10242
         }
-
     }
   }
 
   handleSubmitHome(e) {
   	e.preventDefault();
   	this.fetchData()
+  	
+  	// mock data for labels
+  	this.state.labels = ['noun', 'adjective', 'noun', 'verb'];
+  	this.setState({'page': 'myform' });
   }
 
   handleSubmitForm(e) {
   	e.preventDefault();
-    
-    const values = Array.from(document.querySelectorAll("input")).map(e => e.value);
 
-    let tweetText = this.state.tweet.text;
-
-    values.forEach(value => {
-        tweetText = tweetText.replace(/{noun}|{verb}|{adjective}/, value); 
-    });
-    
-      let tweet = this.state.tweet;
-      tweet.text = tweetText;
-
-  	this.setState({ 'page': 'tweet', tweet });
+  	this.setState({ 'page': 'tweet' });
   }
 
   handleTwitterUserChange(e) {
@@ -56,12 +47,11 @@ class App extends Component {
 
   fetchData() {
   	fetch(`http://35.227.181.45/api/tweet?twitter_user=${this.state.twitter_user}`)
-  	.then( resp => resp.json())
-  	.then( data => {
+  	.then((resp) => resp.json())
+  	.then(function(data) {
+  		console.log("RESPONSE");
+  		console.log(data);
   		// store labels (adjective, noun etc) in this.state.labels
-  		this.setState({'labels': this.parseNewText(data.new_text)});
-  		this.setState({'tweet': this.getTweetData(data)});
-  		this.setState({'page': 'myform' });
 
   	})
   	.catch(function(error) {
@@ -69,32 +59,8 @@ class App extends Component {
   	})
   }
 
-  // retrieve list of "noun, verb, adj" etc
-  parseNewText(text) {
-  	var regExp = /{noun}|{verb}|{adjective}/g;
-		var matches = text.match(regExp);
-		for (var i = 0; i < matches.length; i++) {
-			matches[i] = matches[i].replace("{", "");
-			matches[i] = matches[i].replace("}", "");
-		}
-		return matches;
-  }
-
-    getTweetData(data) {
-        return {
-            avatarURL: data.avatar_url,
-            name: data.name,
-            screenName: "@" + data.user,
-            text: data.new_text,
-            date: data.created_at,
-            replies: 46514,
-            retweets: data.retweet_count,
-            likes: data.favorite_count
-        }
-    }
-
-    render(){
-
+  render() {
+ 
     let Content;
 
   	if (this.state.page == 'myform') {
@@ -105,26 +71,20 @@ class App extends Component {
   	}
   	else if (this.state.page == 'home') {
   		Content = (
-      	<form onSubmit={ this.handleSubmitHome }>
-  				<label>Choose your account:</label>
-  				<input type="text" defaultValue="realdonaldtrump" onChange= { this.handleTwitterUserChange } />
+      	<form onSubmit={ this.handleSubmitHome }>	
+  				<label>Choose tweeter</label>
+  				<input type="text" />
         	<button>Submit</button>
       	</form>
     	);
   	}
 
     return (
-        <div>
-        <div className="title-bar">
-        <div className="title">TweetLibs</div>
-        <img className="logo" src="https://www.sketchappsources.com/resources/source-image/twitterlogo_1x.png" />
-        </div>
         <div className="center">
         {Content}
         </div>
-        </div>
     );
-    
+   
   }
 }
 
